@@ -1,66 +1,72 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MdDashboard,MdOutlineOndemandVideo } from './../../../node_modules/react-icons/md';
+import { VscFeedback } from './../../../node_modules/react-icons/vsc';
+import { AiFillCarryOut,AiFillReconciliation} from './../../../node_modules/react-icons/ai';
+import { FaAngleRight,FaUsers,FaShoppingCart,FaFileInvoiceDollar,FaFileSignature } from './../../../node_modules/react-icons/fa';
 
 function Sidebar() {
+
     return ( 
         <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div className="sb-sidenav-menu">
             <div className="nav">
-                <div className="sb-sidenav-menu-heading">Core</div>
+                <div className="sb-sidenav-menu-heading">OVERVIEW</div>
                 <Link className="nav-link" to="/admin/dashboard">
-                    <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                    <div className="sb-nav-link-icon"><MdDashboard  size={20}/></div>
                     Dashboard
                 </Link>
-                <Link className="nav-link" to="/admin/profile">
-                    <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                    Profile
+
+                <div className="sb-sidenav-menu-heading">MANAGE PRODUCTS</div>
+                <Link className="nav-link" to="/admin/manage-products">
+                    <div className="sb-nav-link-icon"><AiFillCarryOut size={20}/></div>
+                    Products
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight  size={20}/></div>
                 </Link>
-                <div className="sb-sidenav-menu-heading">Interface</div>
-                <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
-                    Layouts
-                    <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                <Link className="nav-link" to="/admin/manage-product-categories">
+                    <div className="sb-nav-link-icon"><AiFillReconciliation  size={20}/></div>
+                    Product Categories
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight  size={20}/></div>
                 </Link>
-                <div className="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav className="sb-sidenav-menu-nested nav">
-                        <Link className="nav-link" to="#">Static Navigation</Link>
-                        <Link className="nav-link" to="#">Light Sidenav</Link>
-                    </nav>
-                </div>
-                <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
-                    Pages
-                    <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+
+                <div className="sb-sidenav-menu-heading">MANAGE VLOG</div>
+                <Link className="nav-link" to="/admin/manage-videos">
+                    <div className="sb-nav-link-icon"><MdOutlineOndemandVideo size={20}/></div>
+                    Videos
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight  size={20}/></div>
                 </Link>
-                <div className="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Authentication
-                            <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-                        </Link>
-                        <div className="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <Link className="nav-link" to="/login">Login</Link>
-                                <Link className="nav-link" to="register">Register</Link>
-                                <Link className="nav-link" to="/password">Forgot Password</Link>
-                            </nav>
-                        </div>
-                    </nav>
-                </div>
-                <div className="sb-sidenav-menu-heading">Addons</div>
-                <Link className="nav-link" to="charts.html">
-                    <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
-                    Charts
+                <Link className="nav-link" to="/admin/manage-articles">
+                    <div className="sb-nav-link-icon"><FaFileSignature  size={20}/></div>
+                    Articles
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight  size={20}/></div>
                 </Link>
-                <Link className="nav-link" to="tables.html">
-                    <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
-                    Tables
+
+                <div className="sb-sidenav-menu-heading">MANAGE</div>
+                <Link className="nav-link" to="/admin/manage-users">
+                    <div className="sb-nav-link-icon"><FaUsers  size={20}/></div>
+                    Users
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight  size={20}/></div>
+                </Link>
+                <Link className="nav-link" to="/admin/manage-orders">
+                    <div className="sb-nav-link-icon"><FaShoppingCart  size={20}/></div>
+                    Orders
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight  size={20}/></div>
+                </Link>
+                <Link className="nav-link" to="/admin/manage-feedback">
+                    <div className="sb-nav-link-icon"><VscFeedback  size={20}/></div>
+                    Feedback
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight size={20} /></div>
+                </Link>
+                <Link className="nav-link" to="/admin/manage-transactions">
+                    <div className="sb-nav-link-icon"><FaFileInvoiceDollar size={20} /></div>
+                    Transactions
+                    <div className="sb-sidenav-collapse-arrow"><FaAngleRight size={20} /></div>
                 </Link>
             </div>
         </div>
         <div className="sb-sidenav-footer">
             <div className="small">Logged in as:</div>
-            Start Bootstrap
+            Crafty Shop Admin
         </div>
     </nav>
      );

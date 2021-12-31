@@ -1,12 +1,12 @@
 import React from 'react';
 import './../../assets/admin/css/styles.css';
+import './../../assets/admin/css/custom.css';
 import './../../assets/admin/js/scripts.js';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import routes from '../../routes/routes';
-import { Redirect, Switch } from 'react-router';
-import {Route} from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 
 
 function MasterLayouts() {
@@ -17,7 +17,7 @@ function MasterLayouts() {
                 <div id="layoutSidenav_nav">
                     <Sidebar />
                 </div>
-                <div id="layoutSidenav_content">
+                <div className="m-3" id="layoutSidenav_content">
                     <main>
                         <Switch>
                             {routes.map((route, idx) => {

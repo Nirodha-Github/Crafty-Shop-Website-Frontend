@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {useHistory} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+
 
 function Navbar() {
 
@@ -27,33 +27,42 @@ function Navbar() {
       if(!localStorage.getItem('auth_token'))
       {
         AuthButtons = (
-          <span className="btn-group justify-content-end">
-                <li className="nav-item">
+          <div className="navbar-nav">
+                <li className="nav-item text-center">
                     <Link className="nav-link" to="/register">Sign Up</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item text-center">
                     <Link className="nav-link" to="/login">Login</Link>
                 </li>
-          </span>
+          </div>
         )
       }
       else{
         AuthName = localStorage.getItem('auth_name')
-        AuthButtons = (    
-            <li className="nav-item dropdown  justify-content-end">
-                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {AuthName}
-                </Link>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li className="nav-item"><Link className="dropdown-item" to="/profile">Profile</Link></li>
-                    <li className="nav-item"><Link className="dropdown-item" to="#">Another action</Link></li>
-                    <li className="nav-item"><button className="btn dropdown-item text-dark text-center nav-link" type="button" width={"100%"} onClick={logoutSubmit}>Logout</button></li>
-                </ul>
-            </li>
+        AuthButtons = (   
+            <div className="navbar-nav">
+                <li className="nav-item text-center">
+                    <Link className="nav-link" to="/cart">Cart</Link>
+                </li>
+                {/* <li className="nav-item text-center">
+                    <Link className="nav-link" to="/orders">Orders</Link>
+                </li> */}
+                <li className="nav-item dropdown text-center">
+                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {AuthName}
+                    </Link>
+                    <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><Link className="dropdown-item text-center" to="/profile">Profile</Link></li>
+                        <li><Link className="dropdown-item text-center" to="#">Wish list</Link></li>
+                        <li><button className="btn dropdown-item text-dark text-center" type="button" width={"100%"} onClick={logoutSubmit}>Logout</button></li>
+                    </ul>
+                </li>
+            </div>
         )
       }
+
     return ( 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-dark shadow sticky-top mainNav justify-content-start">
         <div className="container">
             {/* <Link className="navbar-brand" to="#">Navbar</Link> */}
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,29 +70,28 @@ function Navbar() {
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-                <li className="nav-item">
-                    <Link className="nav-link active" aria-current="page" to="#">Home</Link>
+                <li className="nav-item text-center active">
+                    <Link className="nav-link" to="/">Home</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="#">About Us</Link>
+                <li className="nav-item text-center">
+                    <Link className="nav-link" to="/about-us">About Us</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="#">Products</Link>
+                <li className="nav-item text-center">
+                    <Link className="nav-link" to="/vlog">Vlog</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="#">Cart</Link>
+                <li className="nav-item text-center">
+                    <Link className="nav-link" to="/products">Products</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="#">Vlog</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="#">Orders</Link>
-                </li>
-                {AuthButtons}
+                <li className="nav-item text-center">
+                    <Link className="nav-link" to="/contact-us">Contact Us</Link>
+                 </li>
+                
             </div>
+            {AuthButtons}
             </div>
         </div>
         </nav>
+
      );
 }
 
