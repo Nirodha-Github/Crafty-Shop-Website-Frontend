@@ -9,10 +9,14 @@ import Page401 from './components/errors/Page401';
 import Home from './components/frontend/Home';
 import Profile from './components/frontend/Profile';
 import About from './components/frontend/About';
-import Vlog from './components/frontend/Vlog';
+import Videos from './components/frontend/Videos';
+import Articles from './components/frontend/Articles';
+import ArticleDetail from './components/frontend/components-vlog/ArticleDetail';
 //import Orders from './components/frontend/Orders';
 import Contact from './components/frontend/Contact';
 import Products from './components/frontend/Products';
+import ViewProduct from './components/frontend/components-products/ViewProduct';
+import ProductDetail from './components/frontend/components-products/ProductDetail';
 import axios from 'axios';
 import AdminPrivateRoute from './AdminPrivateRoute';
 
@@ -33,14 +37,18 @@ function App() {
       <Router>
         <Switch>
           <AdminPrivateRoute path="/admin" name="Admin" />
-          <Route path="/" exact="true" component={Home}/>
-          <Route path="/about-us" exact="true" component={About}/>
-          <Route path="/contact-us" exact="true" component={Contact}/>
-          <Route path="/vlog" exact="true" component={Vlog}/>
-          <Route path="/products" exact="true" component={Products}/>
-          <Route path="/profile" exact="true" component={Profile}/>
-          <Route path="/login" exact="true" component = {Login} />
-          <Route path="/register" exact="true" component = {Register} />
+          <Route path="/" exact={true} component={Home}/>
+          <Route path="/about-us" exact={true} component={About}/>
+          <Route path="/contact-us" exact={true} component={Contact}/>
+          <Route path="/vlog/videos" exact={true} component={Videos}/>
+          <Route path="/vlog/articles" exact={true} component={Articles}/>
+          <Route path="/vlog/articles/:id/:slug" exact={true} component={ArticleDetail}/>
+          <Route path="/products" exact={true} component={Products}/>
+          <Route path="/profile/:id" exact={true} component={Profile}/>
+          <Route path="/products/category/:slug" exact={true} component={ViewProduct}/> 
+          <Route path="/products/category/:category/:product" exact={true} component={ProductDetail}/> 
+          <Route path="/login" exact={true} component = {Login} />
+          <Route path="/register" exact={true} component = {Register} />
           <Route path="/403" component = {Page403} />
           <Route path="/404" component = {Page404} />
           <Route path="/401" component = {Page401} />

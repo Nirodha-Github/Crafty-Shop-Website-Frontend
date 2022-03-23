@@ -33,13 +33,13 @@ function ViewUser() {
     else{
         viewUserTable = userlist.map((item) =>{
             return (
-                <tr key={item.Uid}>
-                    <td>{item.Uid}</td>
-                    <td>{item.FirstName} {item.LastName}</td>
-                    <td>{item.Email}</td>
-                    <td>{item.PhoneNo}</td>
-                    <td>{item.Address}</td>
-                    <td>{item.LastSeen}</td>
+                <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.firstname} {item.lastname}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phoneno}</td>
+                    <td>{item.address}</td>
+                    <td>{item.lastseen}</td>
                </tr>                
             );
         })

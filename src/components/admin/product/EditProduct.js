@@ -47,7 +47,7 @@ function EditProduct(props) {
             }
             else if(res.data.status === 404){
                 swal("Error",res.data.message,"error");
-                history.push("/admin/products");
+                history.push("/admin/manage-products");
             }
             setLoading(false);
         });
@@ -103,7 +103,7 @@ function EditProduct(props) {
                     }
                     else if(res.data.status === 404){
                         swal("Error",res.data.message,"error");
-                        history.push("/admin/products");
+                        history.push("/admin/manage-products");
                     }
                 });
             }

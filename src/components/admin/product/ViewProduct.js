@@ -48,9 +48,8 @@ function ViewProduct() {
                     <td>{item.category.name}</td>
                     <td>{item.name}</td>
                     <td>{item.selling_price}</td>
-                    {/* <td><model-viewer bounds="tight" src={`http://localhost:8000/${item.pimage}`} poster="poster.webp" ar ar-modes="webxr scene-viewer quick-look" 
-                    camera-controls environment-image="neutral" shadow-intensity="1" camera-orbit="-7.313deg 27.56deg auto" width="60px" className="model"></model-viewer></td> */}
-                    <td><Link to={`products/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
+                    <td><img src={`http://localhost:8000/${item.pimage}`} alt={item.pimage} width="50px"/></td>
+                    <td><Link to={`manage-products/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
                     <td>{ProductStatus}</td>
                 </tr>
             )
@@ -69,7 +68,7 @@ function ViewProduct() {
                         <th>Category Name</th>
                         <th>Name</th>
                         <th>Selling Price</th>
-                        {/* <th>Image</th> */}
+                        <th>Image</th> 
                         <th>Edit</th>
                         <th>Status</th>
                         </tr>

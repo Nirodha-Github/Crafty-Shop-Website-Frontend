@@ -119,11 +119,65 @@ footer .list-unstyled li h6:hover,.list-unstyled li .footerLink:hover{
 }
 
 .homeContainer,.aboutContainer,.productContainer{
+    height:350px;
+}
+
+.popularProduct{
+    min-height:350px;
+    margin-bottom: 50px;
+}
+
+.recentArticles{
+    height:500px;
+    margin-top: 50px;
+}
+
+.popularProductCard,.recentArticleCard{
     height:300px;
+    
+}
+
+.popularProductCard .card-footer{
+    height:70px;
+    
+}
+
+.recentArticleCard{
+    height: 400px;
+    
+}
+
+.recentArticleCard .card-body{
+    height: 320px;
+}
+
+.recentArticleCard .card-footer{
+    height: 80px;
+}
+
+.goProductBtn{
+    background-color:#933A16;
+    width:150px; 
 }
 
 .profileContainer{
     height:800px;
+}   
+
+.productViewContainer{
+    min-height:1000px;
+}   
+
+.productCard,.categoryCard{
+    height:400px;
+    margin: 10px;
+}
+
+#moreBtn,#categoryBtn{
+    background-color:#933A16;
+    height:80px;
+    width:100%; 
+    padding: 10px; 
 }
 
 .side{
@@ -227,4 +281,30 @@ h5{
     padding:3px;
     margin:auto;  
     
+}
+
+
+
+/*vlog*/
+
+.articlescontainer{
+    height: 500px;
+}
+
+.articlesContainer,.videosContainer{
+    min-height: 700px;
+}
+
+.articleCard{
+    height:200px;
+}
+
+.singleProductContainer{
+    height: 700px;
+
+}
+
+.singleProductCard{
+    height: 650px;
+    margin:10px;
 }

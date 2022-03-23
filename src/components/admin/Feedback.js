@@ -1,30 +1,28 @@
 import React,{useEffect, useState} from "react";
 import axios from "axios";
 import swal from "sweetalert";
-import {Link} from "react-router-dom";
 
-function ViewCategory() {
-
+function Feedback() {
     const [loading,setLoading] = useState(true);
-    const [categorylist,setCategorylist] = useState([]);
+    const [feedbacklist,setFeedbacklist] = useState([]);
 
     useEffect(()=>{
-        document.title = "Product Categories - Dashboard";
-        axios.get('api/view-category').then(res=>{
+        document.title = "Feedback - Dashboard";
+        axios.get('api/view-feedback').then(res=>{
             if(res.status === 200){
-                setCategorylist(res.data.category);
+                setFeedbacklist(res.data.feedback);
             }
             setLoading(false);
         });
     },[]);
 
-    const deleteCategory = (e, id) => {
+    const deleteFeedback = (e, id) => {
         e.preventDefault();
         const thisClicked = e.currentTarget;
 
         swal({
             Title:"Confirmation",
-            text: "Confirm to Delete Categories Data",
+            text: "Confirm to Delete Feedback Data",
             buttons: {           
                 confirm: {
                     text: "Confirm",
@@ -38,7 +36,7 @@ function ViewCategory() {
                         
                 thisClicked.innerText = "Deleting...";
 
-                axios.delete(`api/delete-category/${id}`).then(res =>{
+                axios.delete(`api/delete-feedback/${id}`).then(res =>{
                     if(res.data.status === 200){
                         swal("Success",res.data.message,"success");
                         thisClicked.closest("tr").remove();
@@ -52,7 +50,7 @@ function ViewCategory() {
     });
 }
 
-    var viewCategoryTable = "";
+    var viewFeedbackTable = "";
     if(loading){
         return (            
             <div class="d-flex justify-content-center">
@@ -63,45 +61,45 @@ function ViewCategory() {
             );
     }
     else{
-        viewCategoryTable = categorylist.map((item) =>{
+        viewFeedbackTable = feedbacklist.map((item) =>{
             return (
                 <tr key={item.id}>
                     <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.slug}</td>
-                    <td><img src={`http://localhost:8000/${item.cimage}`} alt={item.cimage} width="50px"/></td>
-                    <td>{item.description}</td>
-                    <td>{item.status}</td>
-                    <td><Link to={`manage-product-categories/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
-                    <td><button type="button" onClick={(e) => deleteCategory(e, item.id)} className="btn btn-danger btn-sm">Delete</button></td>
+                    <td>{item.name}</td>                 
+                    <td>{item.email}</td>
+                    <td>{item.phonenumber}</td>
+                    <td>{item.title}</td>
+                    <td colspan="2">{item.description}</td>       
+                    <td><button type="button" onClick={(e) => deleteFeedback(e, item.id)} className="btn btn-danger btn-sm">Delete</button></td>
                 </tr>
             )
         });
     }
-
     return ( 
-        <div className="container p-3 m-3">
+        <div className="container-fluid px-4">
+            <h4 className="fw-bold">Feedback<hr /></h4>
+            <div className="container p-3 m-3">
             <div className="card">
                 <table className="table card-body table-bordered table-striped">
                     <thead>
                         <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Slug</th>
-                        <th>Image</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Edit</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Title</th>
+                        <th colspan="2">Description</th>
                         <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {viewCategoryTable}
+                        {viewFeedbackTable}
                     </tbody>
                 </table>
             </div>
         </div>
+        </div>
      );
 }
 
-export default ViewCategory;
+export default Feedback;

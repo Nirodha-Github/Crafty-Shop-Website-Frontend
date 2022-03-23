@@ -10,6 +10,7 @@ function EditCategory(props) {
     const [categoryInput,setCategory] = useState([]);
     const [error,setError] = useState([]);
     const [checkboxInput, setCheckbox] = useState([]);
+    const [categoryImage,setCategoryImage] = useState([]);
 
     useEffect(() =>{
         const category_id = props.match.params.id;
@@ -21,7 +22,7 @@ function EditCategory(props) {
             }
             else if(res.data.status === 404){
                 swal("Error",res.data.message,"error");
-                history.push('/admin/product-categories')
+                history.push('/admin/manage-product-categories')
             }
             setLoading(false);
         });
@@ -30,6 +31,11 @@ function EditCategory(props) {
     const handleInput = (e) =>{
         e.persist();
         setCategory({...categoryInput,[e.target.name]:e.target.value})
+    }
+
+    const handleImage = (e) =>{
+        e.persist();
+        setCategoryImage({cimage:e.target.files[0]})
     }
 
     const handleCheckbox = (e) =>{
@@ -53,8 +59,19 @@ function EditCategory(props) {
           }).then((value) => {
             if(value === true){
                 const category_id = props.match.params.id;
-                const data = categoryInput;
-                axios.put(`/api/update-category/${category_id}`, data).then(res=>{
+                const formData = new FormData();
+
+                formData.append('cimage',categoryImage.cimage);
+                formData.append('slug',categoryInput.slug);
+                formData.append('name',categoryInput.name);
+                formData.append('description',categoryInput.description);
+
+                formData.append('meta_title',categoryInput.meta_title);
+                formData.append('meta_keyword',categoryInput.meta_keyword);
+                formData.append('meta_description',categoryInput.meta_description);
+                formData.append('status',checkboxInput.status ? '1':'0');
+
+                axios.put(`/api/update-category/${category_id}`, formData).then(res=>{
                     if(res.data.status === 200){
                         swal("Success",res.data.message,"success");
                         console.log(checkboxInput);
@@ -67,7 +84,7 @@ function EditCategory(props) {
                     }
                     else if(res.data.status === 404){
                         swal("Error",res.data.message,"error");
-                        history.push("admin/product-categories");
+                        history.push("admin/manage-product-categories");
                     }
                 });
                     }
@@ -89,7 +106,7 @@ function EditCategory(props) {
     return ( 
         <div className="container-fluid px-4">
             <h5 className="fw-bold">Edit Product Category
-                <Link to="/admin/product-categories" className="btn btn-secondary btn-sm float-end">Back</Link>
+                <Link to="/admin/manage-product-categories" className="btn btn-secondary btn-sm float-end">Back</Link>
             <hr /></h5>
             <form onSubmit={updateCategory} id="category-form">
                 <nav>
@@ -118,6 +135,14 @@ function EditCategory(props) {
                             <label>Status</label>
                             <input type="checkbox" name="status" onChange={handleCheckbox} defaultChecked={checkboxInput.status === 1 ? true:false} className="p-1 m-1" /><br /><small>Status 0 = shown / 1 = hidden</small>
                         </div>
+                        <div className="form-group mb-3">
+                                <label>Image</label>
+                                <span className="row">
+                                    <input type="file"  name="cimage" onChange={handleImage} className="form-control col-sm-10" />
+                                    <img src={`http://localhost:8000/${categoryInput.cimage}`} alt={categoryInput.cimage} width="50px" className="col-sm-2"/>
+                                </span>
+                                <small className="text-danger">{error.cimage}</small>
+                            </div>
                     </div>
                     <div className="tab-pane fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">
                         <div className="form-group mb-3">

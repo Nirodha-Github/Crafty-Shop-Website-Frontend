@@ -15,6 +15,13 @@ function AddCategory() {
        error_list:[],
     });
 
+    const [categoryImage,setCategoryImage] =useState([]);
+
+    const handleImage = (e) =>{
+        e.persist();
+        setCategoryImage({cimage:e.target.files[0]})
+    }
+
     const handleInput = (e) =>{
         e.persist();
         setCategory({...categoryInput,[e.target.name]:e.target.value})
@@ -23,20 +30,23 @@ function AddCategory() {
     const submitCategory = (e) =>{
         e.preventDefault();
 
-        const data = {
-            slug:categoryInput.slug,
-            name:categoryInput.name,
-            description:categoryInput.description,
-            status:categoryInput.status,
-            meta_title:categoryInput.meta_title,
-            meta_keyword:categoryInput.meta_keyword,
-            meta_description:categoryInput.meta_description,
-        }
+        const formData = new FormData();
 
-        axios.post('/api/store-category', data).then(res=>{
+        formData.append('cimage',categoryImage.cimage);
+        formData.append('slug',categoryInput.slug);
+        formData.append('name',categoryInput.name);
+        formData.append('description',categoryInput.description);
+
+        formData.append('meta_title',categoryInput.meta_title);
+        formData.append('meta_keyword',categoryInput.meta_keyword);
+        formData.append('meta_description',categoryInput.meta_description);
+        
+        formData.append('status',categoryInput.status);
+
+        axios.post('/api/store-category', formData).then(res=>{
             if(res.data.status === 200){
                 swal("Success",res.data.message,"success");
-                document.getElementById('category-form').reset();
+                document.getElementById('category').reset();
             }
             else if(res.data.status === 422){
                 setCategory({...categoryInput,error_list:res.data.errors});
@@ -50,6 +60,7 @@ function AddCategory() {
             categoryInput.error_list.slug,
             categoryInput.error_list.name,
             categoryInput.error_list.meta_title,
+            categoryInput.error_list.cimage,
         ]
     }
 
@@ -68,11 +79,11 @@ function AddCategory() {
                 </div>
                 <div className="modal-body p-3">    
                 {                         
-                            display_errors.map((item) => {
-                            return (<p className="text-danger" key={item}>{item}</p>)
+                            display_errors.map((item,idx) => {
+                            return (<p className="text-danger" key={idx}>{item}</p>)
                             })
                         }
-                        <form onSubmit={submitCategory} id="category-form">
+                        <form onSubmit={submitCategory} id="category">
                             <nav>
                                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                                     <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
@@ -94,6 +105,11 @@ function AddCategory() {
                                     <div className="form-group mb-3">
                                         <label>Description</label>
                                         <textarea name="description" onChange={handleInput} value={categoryInput.description} className="form-control"></textarea>
+                                    </div>
+                                    <div className="col-md-12 form-group mb-3">
+                                            <label>Image</label>
+                                            <input type="file"  name="cimage" onChange={handleImage} className="form-control" />
+                                            <span className="row text-danger">{categoryInput.error_list.cimage}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Status</label>

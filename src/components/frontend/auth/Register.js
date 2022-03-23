@@ -45,6 +45,7 @@ function Register() {
             {
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('auth_name', res.data.username);
+                localStorage.setItem('auth_id', res.data.id);
                 swal("Success", res.data.message,'success');
                 history.push('/');
                 
@@ -92,7 +93,7 @@ function Register() {
                             </div>
                             <div className="form-group col-sm-6 row mt-4">
                                 <label htmlFor="phoneno" className="col-sm-4">Phone Number</label>
-                                <input type="tel" name="phoneno" onChange={handleInput} value={registerInput.phoneno} placeholder="Enter Your Phone Number" className="col-sm-8 p-2 border border-primary border-1" id="phoneno"/>
+                                <input type="tel" name="phoneno" onChange={handleInput} value={registerInput.phoneno} maxLength="10" placeholder="Enter Your Phone Number" className="col-sm-8 p-2 border border-primary border-1" id="phoneno"/>
                                 <span className="row">{registerInput.error_list.phoneno}</span>
                             </div>
                         </div>

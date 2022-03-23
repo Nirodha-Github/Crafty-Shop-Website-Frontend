@@ -1,30 +1,33 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect,useState} from "react";
 import axios from "axios";
-import swal from "sweetalert";
+import swal from 'sweetalert';
 import {Link} from "react-router-dom";
 
-function ViewCategory() {
+function ViewVideo() {
 
     const [loading,setLoading] = useState(true);
-    const [categorylist,setCategorylist] = useState([]);
+    const [videolist,setVideolist] = useState([]);
 
     useEffect(()=>{
-        document.title = "Product Categories - Dashboard";
-        axios.get('api/view-category').then(res=>{
+
+        document.title = "Videos - Dashboard";
+        
+        axios.get('api/view-video').then(res=>{
             if(res.status === 200){
-                setCategorylist(res.data.category);
+                setVideolist(res.data.video);
+                               
             }
             setLoading(false);
         });
     },[]);
 
-    const deleteCategory = (e, id) => {
+    const deleteVideo = (e, id) => {
         e.preventDefault();
         const thisClicked = e.currentTarget;
 
         swal({
             Title:"Confirmation",
-            text: "Confirm to Delete Categories Data",
+            text: "Confirm to Delete Video",
             buttons: {           
                 confirm: {
                     text: "Confirm",
@@ -38,7 +41,7 @@ function ViewCategory() {
                         
                 thisClicked.innerText = "Deleting...";
 
-                axios.delete(`api/delete-category/${id}`).then(res =>{
+                axios.delete(`api/delete-video/${id}`).then(res =>{
                     if(res.data.status === 200){
                         swal("Success",res.data.message,"success");
                         thisClicked.closest("tr").remove();
@@ -52,32 +55,48 @@ function ViewCategory() {
     });
 }
 
-    var viewCategoryTable = "";
+    var viewVideoTable = "";
     if(loading){
         return (            
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border text-secondary" role="status">
-                    <span class="visually-hidden">Loading...</span>
+            <div className="d-flex justify-content-center">
+                <div className="spinner-border text-secondary" role="status">
+                    <span className="visually-hidden">Loading...</span>
                 </div>
             </div>
             );
     }
     else{
-        viewCategoryTable = categorylist.map((item) =>{
-            return (
-                <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.slug}</td>
-                    <td><img src={`http://localhost:8000/${item.cimage}`} alt={item.cimage} width="50px"/></td>
-                    <td>{item.description}</td>
-                    <td>{item.status}</td>
-                    <td><Link to={`manage-product-categories/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
-                    <td><button type="button" onClick={(e) => deleteCategory(e, item.id)} className="btn btn-danger btn-sm">Delete</button></td>
-                </tr>
-            )
-        });
+
+        var VideoStatus = "";
+        if(videolist){
+            viewVideoTable = videolist.map((item) =>{
+                if(item.status === 0){
+                    VideoStatus = "shown";
+                }
+                else if(item.status === 1){
+                    VideoStatus = "hidden";
+                }
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.title}</td>
+                        <td>{item.slug}</td>
+                        <td><video controls><source src={item.video} /></video></td>
+                        <td>{item.description}</td>
+                        <td>{VideoStatus}</td>
+                        <td><Link to={`manage-videos/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
+                        <td><button type="button" onClick={(e) => deleteVideo(e, item.id)} className="btn btn-danger btn-sm">Delete</button></td>                      
+                    </tr>
+                )
+            });
+        }
+
+
+
+        
     }
+
+    
 
     return ( 
         <div className="container p-3 m-3">
@@ -86,9 +105,9 @@ function ViewCategory() {
                     <thead>
                         <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Title</th>
                         <th>Slug</th>
-                        <th>Image</th>
+                        <th>Video</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Edit</th>
@@ -96,7 +115,7 @@ function ViewCategory() {
                         </tr>
                     </thead>
                     <tbody>
-                    {viewCategoryTable}
+                    {viewVideoTable}
                     </tbody>
                 </table>
             </div>
@@ -104,4 +123,4 @@ function ViewCategory() {
      );
 }
 
-export default ViewCategory;
+export default ViewVideo;

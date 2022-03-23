@@ -112,7 +112,7 @@ function AddProduct() {
                 </div>
                 <div className="modal-body p-3">    
                         {                         
-                            display_errors.map((id,item) => {
+                            display_errors.map((item,id) => {
                                 return (<p className="text-danger" key={id}>{item}</p>)
                             })
                         }

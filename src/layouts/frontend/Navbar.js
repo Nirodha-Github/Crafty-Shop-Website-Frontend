@@ -15,6 +15,7 @@ function Navbar() {
           if(res.data.status === 200){
             localStorage.removeItem('auth_token');
             localStorage.removeItem('auth_name');
+            localStorage.removeItem('auth_id');
             swal("Success", res.data.message,"success");
             history.push('/');
           }
@@ -23,6 +24,7 @@ function Navbar() {
     
         var AuthButtons = "";
         var AuthName = "";
+        var AuthId = "";
     
       if(!localStorage.getItem('auth_token'))
       {
@@ -39,6 +41,7 @@ function Navbar() {
       }
       else{
         AuthName = localStorage.getItem('auth_name')
+        AuthId = localStorage.getItem('auth_id')
         AuthButtons = (   
             <div className="navbar-nav">
                 <li className="nav-item text-center">
@@ -52,7 +55,7 @@ function Navbar() {
                         {AuthName}
                     </Link>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><Link className="dropdown-item text-center" to="/profile">Profile</Link></li>
+                        <li><Link className="dropdown-item text-center" to={`/profile/${AuthId}`}>Profile</Link></li>
                         <li><Link className="dropdown-item text-center" to="#">Wish list</Link></li>
                         <li><button className="btn dropdown-item text-dark text-center" type="button" width={"100%"} onClick={logoutSubmit}>Logout</button></li>
                     </ul>
@@ -76,15 +79,21 @@ function Navbar() {
                 <li className="nav-item text-center">
                     <Link className="nav-link" to="/about-us">About Us</Link>
                 </li>
+                <li className="nav-item dropdown text-center">
+                    <Link className="nav-link dropdown-toggle" to="#" id="vlogDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Vlog
+                    </Link>
+                    <ul className="dropdown-menu" aria-labelledby="vlogDropdown">
+                        <li><Link className="dropdown-item text-center" to="/vlog/articles">Articles</Link></li>
+                        <li><Link className="dropdown-item text-center" to="/vlog/videos">Videos</Link></li>
+                    </ul>
+                </li>
                 <li className="nav-item text-center">
-                    <Link className="nav-link" to="/vlog">Vlog</Link>
+                    <Link className="nav-link" to="/contact-us">Contact Us</Link>
                 </li>
                 <li className="nav-item text-center">
                     <Link className="nav-link" to="/products">Products</Link>
                 </li>
-                <li className="nav-item text-center">
-                    <Link className="nav-link" to="/contact-us">Contact Us</Link>
-                 </li>
                 
             </div>
             {AuthButtons}
